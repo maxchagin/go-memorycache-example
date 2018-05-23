@@ -47,6 +47,10 @@ func (c *Cache) Set(key string, value interface{}, duration time.Duration) error
 
 	var expiration int64
 
+	if duration == 0 {
+		duration = c.defaultExpiration
+	}
+
 	if duration > 0 {
 		expiration = time.Now().Add(duration).UnixNano()
 	}

@@ -12,7 +12,7 @@ const (
 )
 
 // AppCache init new cache
-var AppCache = New(10*time.Minute, 1*time.Minute)
+var AppCache = New(10*time.Minute, 1*time.Hour)
 
 // AppCache init new cache
 var AppCacheGC = New(10*time.Minute, 1*time.Second)
