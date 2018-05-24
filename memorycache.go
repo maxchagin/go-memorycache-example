@@ -20,7 +20,6 @@ type Item struct {
 	Value      interface{}
 	Expiration int64
 	Created    time.Time
-	Duration   time.Duration
 }
 
 // New. Initializing a new memory cache
@@ -63,7 +62,6 @@ func (c *Cache) Set(key string, value interface{}, duration time.Duration) {
 		Value:      value,
 		Expiration: expiration,
 		Created:    time.Now(),
-		Duration:   duration,
 	}
 
 }
@@ -113,9 +111,7 @@ func (c *Cache) Delete(key string) error {
 
 // StartGC start Garbage Collection
 func (c *Cache) StartGC() {
-
 	go c.GC()
-
 }
 
 // GC Garbage Collection
