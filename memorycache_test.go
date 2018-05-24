@@ -17,19 +17,6 @@ var AppCache = New(10*time.Minute, 1*time.Hour)
 // AppCache init new cache
 var AppCacheGC = New(10*time.Minute, 1*time.Second)
 
-// TestSet set cache
-func TestSet(t *testing.T) {
-
-	s := AppCache.Set(testKey, testValue, 1*time.Minute)
-
-	// fmt.Println("TestSet:", s)
-
-	if s != nil {
-		t.Error("Error: ", "Could not set cache")
-	}
-
-}
-
 // TestGet get cache by key
 func TestGet(t *testing.T) {
 

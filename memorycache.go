@@ -43,7 +43,7 @@ func New(defaultExpiration, cleanupInterval time.Duration) *Cache {
 }
 
 // Set setting a cache by key
-func (c *Cache) Set(key string, value interface{}, duration time.Duration) error {
+func (c *Cache) Set(key string, value interface{}, duration time.Duration) {
 
 	var expiration int64
 
@@ -66,8 +66,6 @@ func (c *Cache) Set(key string, value interface{}, duration time.Duration) error
 		Duration:   duration,
 	}
 
-	return nil
-
 }
 
 // Get getting a cache by key
@@ -75,11 +73,12 @@ func (c *Cache) Get(key string) (interface{}, bool) {
 
 	c.RLock()
 
+	defer c.RUnlock()
+
 	item, found := c.items[key]
 
 	// cache not found
 	if !found {
-		c.RUnlock()
 		return nil, false
 	}
 
@@ -87,13 +86,10 @@ func (c *Cache) Get(key string) (interface{}, bool) {
 
 		// cache expired
 		if time.Now().UnixNano() > item.Expiration {
-			c.RUnlock()
 			return nil, false
 		}
 
 	}
-
-	c.RUnlock()
 
 	return item.Value, true
 }
