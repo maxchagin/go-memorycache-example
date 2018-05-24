@@ -112,11 +112,9 @@ func (c *Cache) Delete(key string) error {
 }
 
 // StartGC start Garbage Collection
-func (c *Cache) StartGC() error {
+func (c *Cache) StartGC() {
 
 	go c.GC()
-
-	return nil
 
 }
 
