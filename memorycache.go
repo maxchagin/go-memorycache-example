@@ -146,7 +146,7 @@ func (c *Cache) expiredKeys() (keys []string) {
 	defer c.RUnlock()
 
 	for k, i := range c.items {
-		if time.Now().UnixNano() > i.Expiration {
+		if time.Now().UnixNano() > i.Expiration && i.Expiration > 0 {
 			keys = append(keys, k)
 		}
 	}
